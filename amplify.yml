@@ -27,13 +27,13 @@ frontend:
         - npm run build
         - cd dist
         - cp * ../../container/dist/marketing/latest/
-        - cd ../../container/dist/
-        - cp * ../latest/
+        # - cd ../../container/dist/
+        # - cp * ../latest/
 
 
       
   artifacts:
-    baseDirectory: ./packages/container
+    baseDirectory: ./packages/container/dist
     files:
       - '**/*'
   cache:
