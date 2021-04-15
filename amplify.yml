@@ -1,18 +1,37 @@
 version: 1
 frontend:
   phases:
-    # IMPORTANT - Please verify your build commands
+    preBuild:
+      commands:
+        - cd packages/container
     build:
       commands:
         - npm install
-        - cd packages/container
         - npm run build
+        - cd dist
+        - mkdir auth
+        - cd auth
+        - mkdir latest
+        - cd ..
+        - mkdir marketing
+        - cd marketing
+        - mkdir latest
+        - cd ../../../auth
+        - npm install
+        - npm run build
+        - cd dist
+        - cp * ../../container/dist/auth/latest/
+        - cd ../../marketing
+        - npm install
+        - npm run build
+        - cd dist
+        - cp * ../../container/dist/marketing/latest/
 
       
   artifacts:
-    # IMPORTANT - Please verify your build output directory
-    baseDirectory: /
+    baseDirectory: ./packages/container/dist
     files:
       - '**/*'
   cache:
-    paths: []
+    paths:
+      - node_modules/**/*
